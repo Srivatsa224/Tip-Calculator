@@ -1,11 +1,13 @@
 package com.srivatsa.tipcalculator
 
+import android.animation.ArgbEvaluator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.SeekBar
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         seekBarTip.progress=INITIAL_TIP_PERCENT
         tvTipPercent.text="$INITIAL_TIP_PERCENT%"
+        updateTipDescription(INITIAL_TIP_PERCENT)
 
 
         seekBarTip.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
@@ -27,6 +30,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i(TAG, "onProgressChanged $p1")
                 tvTipPercent.text="$p1%"
                 computeTipAndTotal()
+                updateTipDescription(p1)
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {}
@@ -48,6 +52,25 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun updateTipDescription(tipPercent: Int) {
+
+        val tipDescription: String
+        when(tipPercent){
+            in 0..9 -> tipDescription="Poor"
+            in 10..14 -> tipDescription="Acceptable"
+            in 15..19 -> tipDescription="Great"
+            else -> tipDescription="Amazing"
+
+        }
+        tvTipDescription.text=tipDescription
+        val color=ArgbEvaluator().evaluate(tipPercent.toFloat()/seekBarTip.max,
+            ContextCompat.getColor(this,R.color.worstTip),
+            ContextCompat.getColor(this, R.color.BestTip)
+        )as Int
+        tvTipDescription.setTextColor(color)
+
+    }
+
     private fun computeTipAndTotal() {
         // Get base value and Tip %
         if(etBase.text.isEmpty())
@@ -61,8 +84,8 @@ class MainActivity : AppCompatActivity() {
         val tipAmount=baseAmount * tipPercentage /100
         val totalAmount = baseAmount + tipAmount
 
-        tvTipAmount.text="%.2f".format(tipAmount)
-        tvTotalAmount.text="%.2f".format(totalAmount)
+        tvTipAmount.text="₹ " + "%.2f".format(tipAmount)
+        tvTotalAmount.text="₹ " + "%.2f".format(totalAmount)
 
     }
 }
