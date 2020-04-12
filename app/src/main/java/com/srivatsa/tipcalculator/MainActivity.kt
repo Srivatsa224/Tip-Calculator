@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun computeTipAndTotal() {
         // Get base value and Tip %
-        if(etBase.text.isEmpty())
+        if(etBase.text.isEmpty() || percentTip.text.isEmpty())
         {
             tvTipAmount.text=""
             tvTotalAmount.text=""
