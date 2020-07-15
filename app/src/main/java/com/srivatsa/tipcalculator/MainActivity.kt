@@ -1,13 +1,11 @@
 package com.srivatsa.tipcalculator
 
-import android.animation.ArgbEvaluator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.SeekBar
-import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val TAG="MainActivity"
@@ -18,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         etBase.addTextChangedListener(object:TextWatcher{
             override fun afterTextChanged(s: Editable?) {
                 Log.i(TAG,"afterTextChanged $s")
@@ -26,18 +25,23 @@ class MainActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
+
     }
 
     private fun computeTipAndTotal() {
         // Get base value and Tip %
-        if(etBase.text.isEmpty() || percentTip.text.isEmpty())
+        if(etBase.text.isEmpty() || etPercentTip.text.isEmpty())
         {
             tvTipAmount.text=""
             tvTotalAmount.text=""
             return
         }
+
+
+
+
         val baseAmount= etBase.text.toString().toDouble()
-        val tipPercentage=percentTip.text.toString().toDouble()
+        val tipPercentage=etPercentTip.text.toString().toDouble()
         val tipAmount=baseAmount * tipPercentage /100
         val totalAmount = baseAmount + tipAmount
 
