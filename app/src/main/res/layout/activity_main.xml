@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
-        android:text="15%"
+        android:text="Tip %"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -66,32 +66,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:ems="8"
-        android:hint="₹"
+        android:hint="$"
         android:inputType="numberDecimal"
         android:textSize="24sp"
         app:layout_constraintBaseline_toBaselineOf="@id/tvBaseLabel"
         app:layout_constraintStart_toEndOf="@+id/tvBaseLabel" />
 
-    <SeekBar
-        android:id="@+id/seekBarTip"
+    <EditText
+        android:id="@+id/etPercentTip"
         android:layout_width="200dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:max="30"
+       android:ems="8"
+        android:inputType="numberDecimal"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvTipPercent"
         app:layout_constraintTop_toBottomOf="@id/tvTipPercent"
         app:layout_constraintTop_toTopOf="@id/tvTipPercent" />
 
-    <TextView
-        android:id="@+id/tvTipDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/seekBarTip"
-        app:layout_constraintStart_toStartOf="@id/seekBarTip"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarTip"
-        tools:text="Great" />
+
 
     <TextView
         android:id="@+id/tvTipAmount"
